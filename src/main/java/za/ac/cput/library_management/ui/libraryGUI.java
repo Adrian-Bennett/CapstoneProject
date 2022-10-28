@@ -268,7 +268,7 @@ public class libraryGUI extends JFrame {
                             booklineAPI.addBookline(bookline);
                             createTables();
 
-                            tbpnlView.setSelectedIndex(3);
+                            tbpnlView.setSelectedIndex(0);
                             addBooklineLibraryText.setText("");
                             addBooklineItemText.setText("");
                             txtAddBooklineMember.setText("");
@@ -309,7 +309,7 @@ public class libraryGUI extends JFrame {
                                     itemAPI.addItems(item);
                                        createTables();
 
-                                    tbpnlView.setSelectedIndex(3);
+                                    tbpnlView.setSelectedIndex(2);
                                     addItemIDText.setText("");
                                     addItemNameText.setText("");
                                     addItemGenreText.setText("");
@@ -407,7 +407,7 @@ public class libraryGUI extends JFrame {
                             librarianAPI.addLibrarian(librarian);
                             createTables();
 
-                            tbpnlView.setSelectedIndex(3);
+                            tbpnlView.setSelectedIndex(1);
                             addLibrarianIDText.setText("");
                             addLibrarianNameText.setText("");
                             addLibrarianAddressText.setText("");
@@ -463,7 +463,17 @@ public class libraryGUI extends JFrame {
         booklineReturn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                int result = JOptionPane.showConfirmDialog(pnlMain, "Are you sure you wish to delete this Bookline?");
+                if (result == JOptionPane.YES_OPTION) {
+                    int row = booklineTable.getSelectedRow();
+                    if (row == -1) {
+                        JOptionPane.showMessageDialog(pnlMain, "Error: No bookline is selected", "Error", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        String select = itemTable.getModel().getValueAt(row, 0).toString();
+                        booklineAPI.deleteById(select);
+                        createTables();
+                    }
+                }
             }
         });
 
